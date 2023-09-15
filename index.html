@@ -1,4 +1,95 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>PWA Back Button Confirmation</title>
+    <style>
+        /* CSS for styling the alert */
+        .confirmation-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Content of your PWA -->
+<!--     <div>
+        <h1>Your PWA Content</h1>
+        <p>This is your PWA content.</p>
+    </div> -->
+
+    <!-- Confirmation Alert Dialog -->
+<!--     <div id="confirmation-alert" class="confirmation-alert">
+        <p>Would you like to discard content post?</p>
+        <button id="cancel-btn">Cancel</button>
+        <button id="discard-btn">Discard</button>
+    </div>
+ -->
+<!--     <script>
+        let confirmNavigation = false;
+
+        // Event listener for back button press or page close
+        window.addEventListener('beforeunload', function (e) {
+            if (!confirmNavigation) {
+                e.preventDefault(); // Prevent the default dialog box from appearing
+            }
+        });
+
+        // Show the confirmation alert
+        const confirmationAlert = document.getElementById('confirmation-alert');
+        confirmationAlert.style.display = 'none';
+
+        // Handle button clicks
+        const cancelBtn = document.getElementById('cancel-btn');
+        const discardBtn = document.getElementById('discard-btn');
+
+        cancelBtn.addEventListener('click', function () {
+            // User clicked "Cancel," stay on the page
+            confirmNavigation = true;
+            confirmationAlert.style.display = 'none';
+        });
+
+        discardBtn.addEventListener('click', function () {
+            // User clicked "Discard," allow navigation
+            confirmNavigation = true;
+            confirmationAlert.style.display = 'none';
+            window.history.back(); // Simulate the back button press
+        });
+    </script> -->
+<!--     <script>
+        let isConfirmationShown = false;
+
+        // Event listener for back button press
+        window.addEventListener('popstate', function (e) {
+            if (!isConfirmationShown) {
+                e.preventDefault(); // Prevent the default back navigation behavior
+
+                // Show the confirmation alert
+                const confirmation = window.confirm('Would you like to discard content post?');
+
+                if (!confirmation) {
+                    // User clicked "Cancel," stay on the page
+                    window.history.pushState({}, '', window.location.href); // Restore the state
+                } else {
+                    // User clicked "Discard," allow navigation
+                    isConfirmationShown = true;
+                    window.history.back(); // Go back again
+                }
+            }
+        });
+    </script>
+</body>
+</html> -->
+ -->
+
+ <!DOCTYPE html>
 <html>
 <head>
     <title>PWA Back Button Confirmation</title>
@@ -32,57 +123,29 @@
         <button id="discard-btn">Discard</button>
     </div>
 
-<!--     <script>
-        let confirmNavigation = false;
-
+    <script>
         // Event listener for back button press or page close
         window.addEventListener('beforeunload', function (e) {
-            if (!confirmNavigation) {
-                e.preventDefault(); // Prevent the default dialog box from appearing
-            }
-        });
+            e.preventDefault(); // Prevent the default dialog box from appearing
 
-        // Show the confirmation alert
-        const confirmationAlert = document.getElementById('confirmation-alert');
-        confirmationAlert.style.display = 'none';
+            // Show the confirmation alert
+            const confirmationAlert = document.getElementById('confirmation-alert');
+            confirmationAlert.style.display = 'block';
 
-        // Handle button clicks
-        const cancelBtn = document.getElementById('cancel-btn');
-        const discardBtn = document.getElementById('discard-btn');
+            // Handle button clicks
+            const cancelBtn = document.getElementById('cancel-btn');
+            const discardBtn = document.getElementById('discard-btn');
 
-        cancelBtn.addEventListener('click', function () {
-            // User clicked "Cancel," stay on the page
-            confirmNavigation = true;
-            confirmationAlert.style.display = 'none';
-        });
+            cancelBtn.addEventListener('click', function () {
+                // User clicked "Cancel," stay on the page
+                confirmationAlert.style.display = 'none';
+                e.returnValue = ''; // For older browsers
+            });
 
-        discardBtn.addEventListener('click', function () {
-            // User clicked "Discard," allow navigation
-            confirmNavigation = true;
-            confirmationAlert.style.display = 'none';
-            window.history.back(); // Simulate the back button press
-        });
-    </script> -->
-    <script>
-        let isConfirmationShown = false;
-
-        // Event listener for back button press
-        window.addEventListener('popstate', function (e) {
-            if (!isConfirmationShown) {
-                e.preventDefault(); // Prevent the default back navigation behavior
-
-                // Show the confirmation alert
-                const confirmation = window.confirm('Would you like to discard content post?');
-
-                if (!confirmation) {
-                    // User clicked "Cancel," stay on the page
-                    window.history.pushState({}, '', window.location.href); // Restore the state
-                } else {
-                    // User clicked "Discard," allow navigation
-                    isConfirmationShown = true;
-                    window.history.back(); // Go back again
-                }
-            }
+            discardBtn.addEventListener('click', function () {
+                // User clicked "Discard," allow navigation
+                confirmationAlert.style.display = 'none';
+            });
         });
     </script>
 </body>
