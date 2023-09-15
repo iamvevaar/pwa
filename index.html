@@ -32,7 +32,7 @@
         <button id="discard-btn">Discard</button>
     </div>
 
-    <script>
+<!--     <script>
         let confirmNavigation = false;
 
         // Event listener for back button press or page close
@@ -61,6 +61,28 @@
             confirmNavigation = true;
             confirmationAlert.style.display = 'none';
             window.history.back(); // Simulate the back button press
+        });
+    </script> -->
+    <script>
+        let isConfirmationShown = false;
+
+        // Event listener for back button press
+        window.addEventListener('popstate', function (e) {
+            if (!isConfirmationShown) {
+                e.preventDefault(); // Prevent the default back navigation behavior
+
+                // Show the confirmation alert
+                const confirmation = window.confirm('Would you like to discard content post?');
+
+                if (!confirmation) {
+                    // User clicked "Cancel," stay on the page
+                    window.history.pushState({}, '', window.location.href); // Restore the state
+                } else {
+                    // User clicked "Discard," allow navigation
+                    isConfirmationShown = true;
+                    window.history.back(); // Go back again
+                }
+            }
         });
     </script>
 </body>
